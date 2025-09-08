@@ -40,8 +40,9 @@ myTimer1.getCount() - Returns an unsigned long containing the current timer accu
  
  **Timer types**
 
- _OnDelayTimer myTimer1(500);_ - A timer which runs when reset is false and enable is true
-If reset is true or enable is false it is reset.
+ _OnDelayTimer myTimer1(UL);_ - A timer which runs when reset is false and enable is true
+If reset is true or enable is false it is reset. isDone(bool) goes true when preset is reached,
+false otherwise.
 
 _OffDelayTimer(UL)_ - Off delay timer functions like an on delay timer but enable and done
 operate inversely to an on delay timer. Timer is reset to zero accumulated value and isDone() is true
