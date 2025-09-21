@@ -17,16 +17,18 @@ To update a single timer use [your timer name].update() and to update all timers
  reset to a zero accumulated value and .isDone() will be false. The timer will be held at
  reset until setReset is set true.
 
-
-** Getting information from the timers :**
- myTimer1.isEnabled() - Returns a boolean indicating whether or not the timer is enabled to run.
- 
- myTimer1.isReset() - Returns a boolean indicating whether or not a timer is being held reset.
-
  myTimer1.setCtrl(bool) - A few types of timers use this as a special start signal.
 
- myTimer1.isDone() - Returns a boolean true if the timer has reached its preset value. Returns
- false otherwise.
+
+** Getting information from the timers :**
+
+myTimer1.isEnabled() - Returns a boolean indicating whether or not the timer is enabled to run.
+ 
+myTimer1.isReset() - Returns a boolean indicating whether or not a timer is being held reset.
+
+myTimer1.isDone() - Returns a boolean true if the timer has reached its preset value. Returns
+false otherwise.
+
 myTimer1.isRunning() - Returns a boolean true if the timer is actively timing and has not
 reached its preset value. Returns false otherwise.
 
