@@ -4,7 +4,7 @@ updated repeatedly in loop() and two calls are provided for this - one for updat
 timer instance and another for updating all timers at once.
 
 **Updating timers:**
-To update a single timer use [your timer name].update() and to update all timers use 
+To update a single timer use \<your timer name.update()\> and to update all timers use 
  Multi_Timer::updateAllTimers() .
 
  myTimer1 and myTimer2 will be used for the simple examples.
@@ -18,19 +18,18 @@ To update a single timer use [your timer name].update() and to update all timers
  reset until setReset is set true.
 
  myTimer1.setCtrl(bool) - A few types of timers use this as a special start signal.
-
-
-** Getting information from the timers :**
-
-myTimer1.isEnabled() - Returns a boolean indicating whether or not the timer is enabled to run.
  
-myTimer1.isReset() - Returns a boolean indicating whether or not a timer is being held reset.
+**Getting information from the timers :**
 
 myTimer1.isDone() - Returns a boolean true if the timer has reached its preset value. Returns
 false otherwise.
 
 myTimer1.isRunning() - Returns a boolean true if the timer is actively timing and has not
 reached its preset value. Returns false otherwise.
+
+myTimer1.isEnabled() - Returns a boolean indicating whether or not the timer is enabled to run.
+ 
+myTimer1.isReset() - Returns a boolean indicating whether or not a timer is being held reset.
 
 myTimer1.getDoneRose() - Returns a boolean which is true for one program scan when the timer
 reaches its preset value.
