@@ -1,5 +1,5 @@
-An Arduino library containing several types of non-blocking millis timers for general use.
-Any reasonable number of timers in any combination can be used. The timers must be
+An Arduino library containing several types of non-blocking millis timers for general use.&nbsp; 
+Any reasonable number of timers in any combination can be used.&nbsp;  The timers must be
 updated repeatedly in loop() and two calls are provided for this - one for updating a single
 timer instance and another for updating all timers at once.
 
@@ -43,7 +43,7 @@ myTimer1.getCount() - Returns an unsigned long containing the current timer accu
   **Timer types**
 
 _OnDelayTimer myTimer1(UL)_ - A timer which runs when reset is false and enable is true.
-If reset is true or enable is false it is reset. isDone(bool) goes true when preset is reached,
+If reset is true or enable is false it is reset.&nbsp;  isDone(bool) goes true when preset is reached,
 false otherwise.
 
 _OffDelayTimer(UL)_ - Off delay timer functions like an on delay timer but enable and done
@@ -51,7 +51,7 @@ operate inversely to an on delay timer. Timer is reset to zero accumulated value
 when isEnabled() is true.  Timing cycle begins when enable goes false and after the delay time isDone()
 goes false.
 
-_RetentiveTimer(UL)_ - A timer which accumulates when enabled. Accumulated value is retained when enable
+_RetentiveTimer(UL)_ - A timer which accumulates when enabled.&nbsp;   Accumulated value is retained when enable
 is false.  This timer type is reset only by making the reset input true.
 
 _PulseGenTimer(UL)_ - A timer which runs when enabled and not reset. Resets itself upon reaching preset
