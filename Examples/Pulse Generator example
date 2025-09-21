@@ -1,0 +1,53 @@
+#include <Multi_Timer_V2.h>
+
+/* Demonstrate Multi_Timer_V2 pulse generator timer function
+
+Operation and expected result:
+- Connect an LED to pin D10 with appropriate current limiting
+resistor R1.
+
+       LED     R1
+ D10 --->|---/\/\/--- GND
+
+- Start the IDE serial monitor. Insure baud rates between
+processor and monitor match.
+
+Connect input D4 to GND with either a switch or breadboard jumper.
+
+When D4 is grounded the timer is enabled and will run to preset and then auto-reset continually.  The external LED toggles
+on/off each cycle and a count of cycles is display on the serial
+monitor.
+
+The output is either: getDoneRose() or getDoneFell() since these are true
+for one program scan when the timer reaches preset or is reset after
+reaching preset.
+
+*/
+
+PulseGenTimer myTimer1(1000);  // Instantiate a Multi_Timer_V2 object
+
+int counter1 = 0;
+byte externalLED = 10;
+byte switch1 = 4;
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(externalLED, OUTPUT);
+  pinMode(switch1, INPUT_PULLUP);
+}
+
+void loop() {
+  myTimer1.update();  // refresh the timer value and flags
+
+  // Enable/disable the timer using the ternary operator
+  myTimer1.setEnable(digitalRead(switch1) == HIGH ? false : true);
+
+  //  When the timer resets:
+  // a. Increment a counter and display on serial monitor
+  // 2. Toggle the external LED
+  if (myTimer1.getDoneRose()) {
+    Serial.println(++counter1);
+    digitalWrite(externalLED, !digitalRead(externalLED));
+  }
+}
