@@ -1,14 +1,15 @@
 An Arduino library containing several types of non-blocking millis timers for general use.&nbsp; 
 Any reasonable number of timers in any combination can be used.&nbsp;  The timers must be
-updated repeatedly in loop() and two calls are provided for this - one for updating a single
-timer instance and another for updating all timers at once.
+updated repeatedly in loop() and two calls are provided for this.
 
 The example sketches were tested on a standard Aduino NANO and developed on an UNO R3.
 
 # Updating timers:
 
-To update a single timer use **\<your timer name\>.update()** and to update all timers use 
- **Multi_Timer::updateAllTimers()** .
+**your timer name.update()** -  Update the accumulated value and flags for one timer.&nbsp; You
+can use a separate call for each of more than one timer or;
+
+ **Multi_Timer::updateAllTimers()**  - Update value and flags for all Multi_Timer_V2 types.
 
  # Controlling the timers :
 
@@ -37,13 +38,12 @@ reached its preset value.&nbsp; Returns false otherwise.
  
 **bool myTimer1.isReset()** - Returns true if the timer is being held reset.
 
-**bool myTimer1.getDoneRose()** - Returns a boolean which is true for one program scan when the timer
-reaches its preset value.
+**bool myTimer1.getDoneRose()** - True for one program scan when the timer reaches its preset value.
 
-**bool myTimer1.getDoneFell()** - Returns a boolean which is true for one program scan when the timer is reset, if
-the timer has reached its preset value.
+**bool myTimer1.getDoneFell()** - True for one program scan when the timer is reset, if the timer has
+reached its preset value.
 
-**bool mytimer1.isFlashing()** - A special output for the flasherTimer type.&nbsp; Goes true when timing starts
+**bool mytimer1.isFlashing()** - A special output for the flasherTimer type that goes true when timing starts
 and goes false when ON time milliseconds is reached.
 
 **unsigned long myTimer1.getCount()** - Returns the current timer accumulated value.
