@@ -15,9 +15,9 @@ To update a single timer use \<your timer name.update()\> and to update all time
 
  myTimer1.setEnable(bool) - Use this to start and/or stop a timer
 
- myTimer1.setReset(bool) - Set to true a timer is enabled to run.&nbsp; Set to false a timer is
+ myTimer1.setReset(bool) - Set to false a timer is enabled to run.&nbsp; Set to true a timer is
  reset to a zero accumulated value and .isDone() will be false.&nbsp; The timer will be held at
- reset until setReset is set true.
+ reset until setReset is set false.
 
  myTimer1.setCtrl(bool) - A few types of timers use this as a special start signal.
  
