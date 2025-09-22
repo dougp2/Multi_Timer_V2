@@ -3,6 +3,8 @@ Any reasonable number of timers in any combination can be used.&nbsp;  The timer
 updated repeatedly in loop() and two calls are provided for this - one for updating a single
 timer instance and another for updating all timers at once.
 
+The example sketches were tested on a standard Aduino NANO and developed on an UNO R3.
+
 **Updating timers:**
 To update a single timer use \<your timer name.update()\> and to update all timers use 
  Multi_Timer::updateAllTimers() .
