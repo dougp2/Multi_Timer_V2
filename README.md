@@ -4,6 +4,37 @@ updated repeatedly in loop() and two calls are provided for this.
 
 The example sketches were tested on a standard Aduino NANO and developed on an UNO R3.
 
+ # Timer types
+
+**OnDelayTimer myTimer1(UL)** - A timer which runs when reset is false and enable is true.&nbsp; 
+If reset is true or enable is false it is reset.&nbsp; isDone(bool) goes true when preset is reached,
+false otherwise.
+
+**OffDelayTimer myTimer1(UL)** - Off delay timer functions like an on delay timer but enable and done
+operate inversely to an on delay timer.&nbsp; Timer is reset to zero accumulated value and isDone() is true
+when isEnabled() is true.&nbsp; Timing cycle begins when enable goes false and after the delay time isDone()
+goes false.
+
+**RetentiveTimer myTimer1(UL)** - A timer which accumulates when enabled and holds its accumulated value when
+enable is false.&nbsp; This timer type is reset only by making setReset() true.
+
+**PulseGenTimer myTimer1(UL)** - A timer which runs when enabled and not reset.&nbsp; Resets itself upon reaching preset
+then restarts the timing cycle automatically as long as enable is true.
+
+**RetriggerableTimer myTimer1(UL)** - When the timer is enabled a change of state on the 'control' input resets the timer
+and restarts the timing cycle.&nbsp; Continuous cycling of the control input at a rate faster than the time
+delay will cause the isDone() status flag to remain low indefinitely.&nbsp; See 'retriggerable monostable multivibrator'
+on the web.
+
+**FlasherTimer myTimer1(UL, UL)** - This timer runs and resets itself automatically when enabled.&nbsp; The first
+constructor argument specifies the period of the timer, say one second.&nbsp; The second constructor argument
+specifies an ON time for a special output <.isFlashing(bool)> unique to this type.&nbsp; The onTime value can be
+runtime modified using the function myTimer1.setOnTime(UL).&nbsp; If onTime is modified at runtime the timer is
+immediately reset.
+
+Flasher timer can be used as a pulse generator timer but the isFlashing() and setOnTime() features will
+incur a penalty in memory and clock cycle usage over a PulseGenTimer.
+
 # Updating timers:
 
 **your timer name.update()** -  Update the accumulated value and flags for one timer.&nbsp; You
@@ -29,7 +60,8 @@ can use a separate call for each of more than one timer or;
 # Getting information from the timers :
 
 **bool myTimer1.isDone()** - Returns true if the timer has reached its preset value.&nbsp; Returns
-false otherwise.
+false otherwise.&nbsp; In the case of the off timer .isDone() returns false when preset is reached
+and is true otherwise.
 
 **bool myTimer1.isRunning()** - Returns true if the timer is actively timing and has not
 reached its preset value.&nbsp; Returns false otherwise.
@@ -47,37 +79,4 @@ reached its preset value.
 and goes false when ON time milliseconds is reached.
 
 **unsigned long myTimer1.getCount()** - Returns the current timer accumulated value.
-
-
- # Timer types
-
-**OnDelayTimer myTimer1(UL)** - A timer which runs when reset is false and enable is true.&nbsp; 
-If reset is true or enable is false it is reset.&nbsp; isDone(bool) goes true when preset is reached,
-false otherwise.
-
-**OffDelayTimer(UL)** - Off delay timer functions like an on delay timer but enable and done
-operate inversely to an on delay timer.&nbsp; Timer is reset to zero accumulated value and isDone() is true
-when isEnabled() is true.&nbsp; Timing cycle begins when enable goes false and after the delay time isDone()
-goes false.
-
-**RetentiveTimer(UL)** - A timer which accumulates when enabled and reset is false.&nbsp;   Accumulated value
-is retained when enable is false.&nbsp; This timer type is reset only by making the reset input true.
-
-**PulseGenTimer(UL)** - A timer which runs when enabled and not reset.&nbsp; Resets itself upon reaching preset
-then restarts the timing cycle automatically as long as enable is true.
-
-**RetriggerableTimer(UL)** - When the timer is enabled a change of state on the 'control' input resets the timer
-and restarts the timing cycle.&nbsp; Continuous cycling of the control input at a rate faster than the time
-delay will cause the isDone() status flag to remain low indefinitely.
-
-**FlasherTimer(UL, UL)** - This timer runs and resets itself automatically when enabled.&nbsp; It is basically
-an enhanced pulse generator timer.&nbsp; The first constructor argument specifies the period of the timer, say
-one second.&nbsp; The second constructor argument specifies an ON time for a special output <.isFlashing(bool)> unique
-to this type.&nbsp; 
- The onTime value can be runtime modified using the function
-myTimer1.setOnTime(UL).&nbsp; If onTime is modified at runtime the timer is immediately reset.
-
-Flasher timer can be used as a pulse generator timer but the isFlashing() and setOnTime() features will
-incur a penalty in memory and clock cycle usage over a PulseGenTimer.
-
 
