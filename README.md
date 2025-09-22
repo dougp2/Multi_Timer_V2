@@ -51,8 +51,8 @@ operate inversely to an on delay timer.&nbsp; Timer is reset to zero accumulated
 when isEnabled() is true.&nbsp; Timing cycle begins when enable goes false and after the delay time isDone()
 goes false.
 
-_RetentiveTimer(UL)_ - A timer which accumulates when enabled.&nbsp;   Accumulated value is retained when enable
-is false.&nbsp; This timer type is reset only by making the reset input true.
+_RetentiveTimer(UL)_ - A timer which accumulates when enabled and reset is false.&nbsp;   Accumulated value
+is retained when enable is false.&nbsp; This timer type is reset only by making the reset input true.
 
 _PulseGenTimer(UL)_ - A timer which runs when enabled and not reset.&nbsp; Resets itself upon reaching preset
 then restarts the timing cycle automatically as long as enable is true.
@@ -64,7 +64,8 @@ delay will cause the isDone() status flag to remain low indefinitely.
 _FlasherTimer(UL, UL)_ - This timer runs and resets itself automatically when enabled.&nbsp; It is basically
 an enhanced pulse generator timer.&nbsp; The first constructor argument specifies the period of the timer, say
 one second.&nbsp; The second constructor argument specifies an ON time for a special output <.isFlashing(bool)> unique
-to this type.&nbsp; If Enable goes false the timer is reset immediately.
+to this type.&nbsp; The ON time begins when timing starts and ends when ON time milliseconds is reached.
+If Enable goes false the timer is reset immediately.
 
 Set onTime to some fraction of the preset value.&nbsp; The onTime value can be runtime modified using the function
 myTimer1.setOnTime(UL).&nbsp; If onTime is modified at runtime the timer is immediately reset.
