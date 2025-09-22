@@ -6,40 +6,39 @@ timer instance and another for updating all timers at once.
 The example sketches were tested on a standard Aduino NANO and developed on an UNO R3.
 
 **Updating timers:**
-To update a single timer use \<your timer name.update()\> and to update all timers use 
+To update a single timer use \<your timer name\>.update() and to update all timers use 
  Multi_Timer::updateAllTimers() .
 
- myTimer1 and myTimer2 will be used for the simple examples.
+  **Controlling the timers :**
 
- **Controlling the timers :**
-
- myTimer1.setEnable(bool) - Use this to start and/or stop a timer
+ myTimer1.setEnable(bool) - Set to true enables a timer to run, provided the timer is
+ not being held reset by .setReset(bool).  Set to false the timer resets or stops.
 
  myTimer1.setReset(bool) - Set to false a timer is enabled to run.&nbsp; Set to true a timer is
- reset to a zero accumulated value and .isDone() will be false.&nbsp; The timer will be held at
- reset until setReset is set false.
+ reset to a zero accumulated value and .isDone() will return false.&nbsp; The timer will be
+ held at reset until setReset is set false.
 
  myTimer1.setCtrl(bool) - A few types of timers use this as a special start signal.
  
-**Getting information from the timers :**
+# Getting information from the timers :
 
-myTimer1.isDone() - Returns a boolean true if the timer has reached its preset value. Returns
+**bool myTimer1.isDone()** - Returns true if the timer has reached its preset value.&nbsp; Returns
 false otherwise.
 
-myTimer1.isRunning() - Returns a boolean true if the timer is actively timing and has not
+**bool myTimer1.isRunning()** - Returns a boolean true if the timer is actively timing and has not
 reached its preset value.&nbsp; Returns false otherwise.
 
-myTimer1.isEnabled() - Returns a boolean indicating whether or not the timer is enabled to run.
+**myTimer1.isEnabled()** - Returns a boolean indicating whether or not the timer is enabled to run.
  
-myTimer1.isReset() - Returns a boolean indicating whether or not a timer is being held reset.
+**myTimer1.isReset()** - Returns a boolean indicating whether or not a timer is being held reset.
 
-myTimer1.getDoneRose() - Returns a boolean which is true for one program scan when the timer
+**myTimer1.getDoneRose()** - Returns a boolean which is true for one program scan when the timer
 reaches its preset value.
 
-myTimer1.getDoneFell() - Returns a boolean which is true for one program scan when the timer is reset, if
+**bool myTimer1.getDoneFell()** - Returns a boolean which is true for one program scan when the timer is reset, if
 the timer has reached its preset value.
 
-myTimer1.getCount() - Returns an unsigned long containing the current timer accumulated value.
+**unsigned long myTimer1.getCount()** - Returns the current timer accumulated value.
 
 
   **Timer types**
