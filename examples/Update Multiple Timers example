@@ -1,0 +1,81 @@
+#include <Multi_Timer_V2.h>
+
+/* Demonstrate Multi_Timer_V2 updateAllTimers function
+
+Operation and expected result:
+
+Demonstrates operating several types of Multi_Timers using
+only one update call.  
+
+Connect input D4 to GND with either a SPST switch or breadboard
+jumper.
+
+- Connect an LED to pin D10 with appropriate current limiting
+resistor R1.
+
+       LED     R1
+ D10 --->|---/\/\/--- GND
+
+- Start the IDE serial monitor. Insure baud rates between
+processor and monitor match.
+
+When D4 (switch1) is closed the pulse generator timer starts.
+This timer's isDone() is fed to a retriggerable timer.
+The retriggerable timer's .isDone() is fed to an on delay
+timer and to the external LED.  When the retriggerable timer,
+due to not receiving changes on its .setCtrl(), times out the
+external LED is lit and the on delay is enabled.  When the
+on delay times out the on board LED is lit.
+*/
+
+// Instantiate a series of Multi_Timer_V2 objects
+
+// Pulse generator timer gets a lower preset value than the
+// retriggerable timer.  This means the retriggerable timer
+// will be prevented from timing out out when pulse generator
+timer is enabled.
+
+PulseGenTimer signalSourceTimer(250);
+
+RetriggerableTimer pulseMonitorTimer(340);
+
+OnDelayTimer illuminatorTimer(1500);
+
+int counter1 = 0;
+
+byte externalLED = 10;
+byte switch1 = 4;
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(switch1, INPUT_PULLUP);
+  pinMode(externalLED, OUTPUT);
+  // Enable retriggerable timer
+  pulseMonitorTimer.setEnable(true);  //
+}
+
+void loop() {
+  // Refresh all timer values and flags as a group
+  Multi_Timer::updateAllTimers();
+
+  // Enable/disable the pulse generator timer using the ternary operator
+  // and switch1.
+  signalSourceTimer.setEnable(digitalRead(switch1) == HIGH ? false : true);
+
+  // Drive the retriggerable timer with the signal source done signal.
+  // As long as signalSourceTimer.isDone() is changing the pulseMonitorTimer
+  // is prevented from timing out and pulseMonitorTimer.isDone() remains false.
+  pulseMonitorTimer.setCtrl(signalSourceTimer.isDone() ? true : false);
+  digitalWrite(externalLED, pulseMonitorTimer.isDone());
+
+  if (pulseMonitorTimer.getDoneRose()) {
+    Serial.println(++counter1);
+  }
+  // Enable the illuminator timer with pulseMonitorTimer.isDone().
+  
+  illuminatorTimer.setEnable(pulseMonitorTimer.isDone() ? true : false);
+
+  // This is the timer output
+  digitalWrite(LED_BUILTIN, illuminatorTimer.isDone() ? HIGH : LOW);
+}
