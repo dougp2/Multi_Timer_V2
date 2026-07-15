@@ -81,7 +81,7 @@ public:
    value for each timer.
    ====================================================*/
 
-  virtual boolean update();  // Updates the timer which calls it.
+  virtual bool update();  // Updates the timer which calls it.
 
   /* =============================================================
               Update All Timers
